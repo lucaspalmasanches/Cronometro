@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    </link>
+    <title>Cronômetro</title>
+</head>
+
+<body>
+
+    <main>
+        <div class="main-container">
+            <div class="crown"></div>
+            <div class="pusher left"></div>
+            <div class="pusher right"></div>
+            <div class="stopwatch">
+                <h1>Cronômetro</h1>
+
+                <p id="timer-display">00:00:00.000</p>
+            </div>
+        </div>
+        <div class="button-container">
+            <button id="start-button">Start</button>
+
+            <button id="stop-button">Stop</button>
+
+            <button id="lap-button">Lap</button>
+
+            <button id="reset-button">Reset</button>
+        </div>
+
+        <div class="lap-container">
+            <h2>Voltas</h2>
+
+            <ul id="lap-list">
+
+            </ul>
+        </div>
+
+    </main>
+
+</body>
+<script src="script.js"></script>
+
+</html>
