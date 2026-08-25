@@ -277,6 +277,27 @@ h2 {
     margin-bottom: 0;
 }
 
+#clear-laps {
+    background-color: #757575;
+    color: white;
+    margin-top: 20px;
+    width: 100%;
+    max-width: none;
+    flex: none;
+    padding: 10px 15px;
+    font-size: 1em;
+}
+
+#clear-laps:hover {
+    background-color: #616161;
+}
+
+#clear-laps:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #757575;
+}
+
 @media (max-width: 480px) {
     main {
         padding: 20px;

@@ -4,6 +4,7 @@ const stopButton = document.getElementById("stop-button")
 const resetButton = document.getElementById("reset-button")
 const lapButton = document.getElementById("lap-button")
 const lapList = document.getElementById("lap-list")
+const clearLaps = document.getElementById("clear-laps")
 
 let totalMilliseconds = 0
 let intervalId = null
@@ -75,6 +76,14 @@ const recordLap = () => {
         lapButton.disabled = true
         canTakeLapWhilePaused = false
     }
+
+    clearLaps.disabled = false
+}
+
+const lapCleaner = () => {
+    lapTimes = []
+    lapList.innerHTML = ""
+    clearLaps.disabled = true
 }
 
 const resetTimer = () => {
@@ -82,8 +91,6 @@ const resetTimer = () => {
     intervalId = null
     totalMilliseconds = 0
     timerDisplay.textContent = formatTime(totalMilliseconds)
-    lapTimes = []
-    lapList.innerHTML = ""
 
     startButton.classList.remove("pressed")
     stopButton.classList.remove("pressed")
@@ -99,12 +106,14 @@ startButton.addEventListener("click", startTimer)
 stopButton.addEventListener("click", stopTimer)
 resetButton.addEventListener("click", resetTimer)
 lapButton.addEventListener("click", recordLap)
+clearLaps.addEventListener("click", lapCleaner)
 
 timerDisplay.textContent = formatTime(totalMilliseconds)
 startButton.disabled = false
 stopButton.disabled = true
 lapButton.disabled = true
 resetButton.disabled = true
+clearLaps.disabled = true
 canTakeLapWhilePaused = false
 
 startButton.classList.remove("pressed")
