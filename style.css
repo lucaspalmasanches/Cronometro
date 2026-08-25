@@ -151,6 +151,13 @@ button {
     border-bottom: 3px solid rgba(0, 0, 0, 0.5);
 }
 
+button.pressed {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    filter: brightness(0.9);
+}
+
 button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
@@ -167,6 +174,19 @@ button:focus-visible {
     outline-offset: 2px;
 }
 
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: translateY(0) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+}
+
+button:disabled:hover {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
 #start-button {
     background-color: #4caf50;
 }
@@ -175,11 +195,19 @@ button:focus-visible {
     background-color: #45a049;
 }
 
+#start-button.pressed {
+    background-color: #45a049;
+}
+
 #stop-button {
     background-color: #f44336;
 }
 
 #stop-button:hover {
+    background-color: #da190b;
+}
+
+#stop-button.pressed {
     background-color: #da190b;
 }
 

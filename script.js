@@ -2,12 +2,13 @@ const timerDisplay = document.getElementById("timer-display")
 const startButton = document.getElementById("start-button")
 const stopButton = document.getElementById("stop-button")
 const resetButton = document.getElementById("reset-button")
-const LapButton = document.getElementById("lap-button")
+const lapButton = document.getElementById("lap-button")
 const lapList = document.getElementById("lap-list")
 
 let totalMilliseconds = 0
 let intervalId = null
 let lapTimes = []
+let canTakeLapWhilePaused = false
 
 const formatTime = (ms) => {
     const hours = Math.floor(ms / 3600000)
@@ -26,42 +27,85 @@ const startTimer = () => {
     intervalId = setInterval(() => {
         totalMilliseconds += 10
         timerDisplay.textContent = formatTime(totalMilliseconds)
-    }, 10);
+    }, 10)
+
+    startButton.classList.add("pressed")
+    stopButton.classList.remove("pressed")
+    
+    startButton.disabled = true
+    stopButton.disabled = false
+    lapButton.disabled = false
+    resetButton.disabled = false
+    canTakeLapWhilePaused = false
 }
 
 const stopTimer = () => {
     clearInterval(intervalId)
     intervalId = null
+
+    stopButton.classList.add("pressed")
+    startButton.classList.remove("pressed")
+
+    startButton.disabled = false
+    stopButton.disabled = true
+    
+    if (totalMilliseconds > 0) {
+        lapButton.disabled = false
+        canTakeLapWhilePaused = true
+    } else {
+        lapButton.disabled = true
+        canTakeLapWhilePaused = false
+    }
+
+    resetButton.disabled = (totalMilliseconds === 0)
 }
 
 const recordLap = () => {
-    if (intervalId === null && totalMilliseconds === 0) {
-        console.log("O cronômetro precisa estar rodando para registrar uma volta.")
-        return
-    }
-
     const currentLapTime = formatTime(totalMilliseconds)
     lapTimes.push(currentLapTime)
 
-    const listItems = document.createElement("li")
-    listItems.textContent = `${currentLapTime}`
+    const listItem = document.createElement("li")
+    listItem.textContent = `${currentLapTime}`
 
-    lapList.appendChild(listItems)
+    lapList.appendChild(listItem)
 
     lapList.scrollTop = lapList.scrollHeight
+
+    if (intervalId === null && canTakeLapWhilePaused) {
+        lapButton.disabled = true
+        canTakeLapWhilePaused = false
+    }
 }
 
 const resetTimer = () => {
-    stopTimer()
+    clearInterval(intervalId)
+    intervalId = null
     totalMilliseconds = 0
     timerDisplay.textContent = formatTime(totalMilliseconds)
     lapTimes = []
     lapList.innerHTML = ""
+
+    startButton.classList.remove("pressed")
+    stopButton.classList.remove("pressed")
+
+    startButton.disabled = false
+    stopButton.disabled = true
+    lapButton.disabled = true
+    resetButton.disabled = true
+    canTakeLapWhilePaused = false
 }
 
 startButton.addEventListener("click", startTimer)
 stopButton.addEventListener("click", stopTimer)
 resetButton.addEventListener("click", resetTimer)
-LapButton.addEventListener("click", recordLap)
+lapButton.addEventListener("click", recordLap)
 
 timerDisplay.textContent = formatTime(totalMilliseconds)
+startButton.disabled = false
+stopButton.disabled = true
+lapButton.disabled = true
+resetButton.disabled = true
+canTakeLapWhilePaused = false
+
+startButton.classList.remove("pressed")
+stopButton.classList.remove("pressed")
